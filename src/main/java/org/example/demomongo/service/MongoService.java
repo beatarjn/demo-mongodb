@@ -2,32 +2,29 @@ package org.example.demomongo.service;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.demomongo.model.MongoEvent;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.example.demomongo.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class MongoService {
 
-  private final MongoRepository mongoRepository;
-
-  public MongoService(MongoRepository mongoRepository) {
-    this.mongoRepository = mongoRepository;
-  }
+  private final EventRepository mongoRepository;
 
   public MongoEvent create(MongoEvent mongoEvent) {
-    return (MongoEvent) mongoRepository.save(mongoEvent);
+    return mongoRepository.save(mongoEvent);
   }
 
   public List<MongoEvent> findAll() {
-    List<MongoEvent> all = mongoRepository.findAll();
-    all.forEach(System.out::println);
-    return all;
+    return mongoRepository.findAll();
   }
 
   public MongoEvent findById(String id) {
     Optional<MongoEvent> event = mongoRepository.findById(id);
-    event.ifPresent(System.out::println);
     return event.orElseGet(null);
   }
 }

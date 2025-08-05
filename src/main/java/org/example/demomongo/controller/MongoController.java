@@ -1,10 +1,12 @@
 package org.example.demomongo.controller;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.example.demomongo.model.MongoEvent;
 import org.example.demomongo.service.MongoService;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("events")
 public class MongoController {
@@ -16,7 +18,7 @@ public class MongoController {
 
   @PostMapping
   public MongoEvent create(@RequestBody final MongoEvent mongoEvent) {
-    System.out.println("create method from controller");
+    log.info("create method from controller");
     return mongoService.create(mongoEvent);
   }
 
